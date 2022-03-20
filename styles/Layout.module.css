@@ -1,0 +1,21 @@
+.navigation {
+  align-items: center;
+  border-bottom: 1px solid #f1f0f0;
+  display: flex;
+  height: 98px;
+  padding: 0 64px;
+  width: 100%;
+}
+
+.logo {
+  height: 32px;
+  width: 89px;
+}
+
+.navigation_link {
+  color: #231e1e;
+  font-size: 16px;
+  line-height: 24px;
+  margin-left: 48px;
+  text-align: left;
+}
