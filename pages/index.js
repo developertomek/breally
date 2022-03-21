@@ -18,7 +18,7 @@ export const getStaticProps = async () => {
 
 export default function Home({ pages, page }) {
   const [email, setEmail] = useState('')
-  const [message, setMessage] = useState()
+  const [text, setText] = useState()
   const [isSigned, setIsSigned] = useState(false)
   const [error, setError] = useState(false)
 
@@ -28,9 +28,14 @@ export default function Home({ pages, page }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const response = await signNewsletter(email)
-    setMessage((await response.json()).message)
-    if (response.ok) {
+    const response = await fetch('/api/newsletter', {
+      method: 'POST',
+      body: JSON.stringify({ email: email }),
+    })
+    const { message, ok } = await response.json()
+
+    setText(message)
+    if (ok) {
       setIsSigned(true)
       setError(false)
     } else {
@@ -89,9 +94,9 @@ export default function Home({ pages, page }) {
                         <Button onClick={handleSubmit}>Submit</Button>
                       </form>
                       {isSigned && (
-                        <p className={styles.thank_you_for_signin}>{message}</p>
+                        <p className={styles.thank_you_for_signin}>{text}</p>
                       )}
-                      {error && <p className={styles.error}>{message}</p>}
+                      {error && <p className={styles.error}>{text}</p>}
                     </>
                   )}
                 </div>
